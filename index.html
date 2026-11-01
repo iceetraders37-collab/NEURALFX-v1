@@ -1,0 +1,289 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NEURALFX Trading Platform</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #080b0a;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  padding: 20px;
+  border-bottom: 1px solid #26332a;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.logo span {
+  color: #00ff88;
+}
+
+main {
+  padding: 20px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.subtitle {
+  color: #8b978f;
+}
+
+.card {
+  background: #111713;
+  border: 1px solid #26332a;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.balance {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.green {
+  color: #00ff88;
+}
+
+button {
+  background: #00ff88;
+  color: #080b0a;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+nav button {
+  flex: 1;
+}
+
+.secondary {
+  background: #202a23;
+  color: white;
+}
+
+.chart {
+  height: 200px;
+  background: #080b0a;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #00ff88;
+  text-align: center;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  background: #080b0a;
+  border: 1px solid #26332a;
+  color: white;
+  border-radius: 8px;
+}
+
+section[hidden] {
+  display: none;
+}
+
+footer {
+  text-align: center;
+  color: #8b978f;
+  padding: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    NEURAL<span>FX</span>
+  </div>
+  <p class="green">● DEMO MODE</p>
+</header>
+
+<main>
+
+<h1>Trading Dashboard</h1>
+
+<p class="subtitle">
+Your market. Your strategy. Your platform.
+</p>
+
+<nav>
+<button onclick="show('dashboard')">Dashboard</button>
+<button class="secondary" onclick="show('markets')">Markets</button>
+<button class="secondary" onclick="show('bot')">Bot</button>
+</nav>
+
+<section id="dashboard">
+
+<div class="card">
+<p class="subtitle">Virtual Balance</p>
+
+<div class="balance" id="balance">
+$10,000.00
+</div>
+
+<p class="green">SIMULATED ACCOUNT</p>
+</div>
+
+<div class="card">
+<p class="subtitle">Trading Bot</p>
+
+<h2 id="status">Stopped</h2>
+
+<button onclick="toggleBot()">
+Start Simulator
+</button>
+</div>
+
+</section>
+
+<section id="markets" hidden>
+
+<div class="card">
+
+<h2>Market Watch</h2>
+
+<p>EURUSD</p>
+<p>XAUUSD</p>
+<p>NASDAQ</p>
+
+<div class="chart">
+NEURALFX CHART<br>
+SIMULATED DATA
+</div>
+
+</div>
+
+</section>
+
+<section id="bot" hidden>
+
+<div class="card">
+
+<h2>NEURALFX BOT</h2>
+
+<p class="subtitle">
+Strategy: Trend + Support/Resistance
+</p>
+
+<p id="message">
+Simulator stopped.
+</p>
+
+<button onclick="toggleBot()">
+Start / Stop Simulator
+</button>
+
+<label>Virtual Trade Amount</label>
+
+<input id="amount" type="number" value="100">
+
+<button onclick="trade('BUY')">
+Simulate Buy
+</button>
+
+<button class="secondary" onclick="trade('SELL')">
+Simulate Sell
+</button>
+
+</div>
+
+</section>
+
+</main>
+
+<footer>
+NEURALFX V1<br>
+Educational Trading Simulator
+</footer>
+
+<script>
+
+let running = false;
+
+function show(id) {
+
+  document.getElementById("dashboard").hidden =
+    id !== "dashboard";
+
+  document.getElementById("markets").hidden =
+    id !== "markets";
+
+  document.getElementById("bot").hidden =
+    id !== "bot";
+
+}
+
+function toggleBot() {
+
+  running = !running;
+
+  document.getElementById("status").textContent =
+    running ? "Simulator Running" : "Stopped";
+
+  document.getElementById("message").textContent =
+    running ? "Practice simulator activated." :
+    "Simulator stopped.";
+
+}
+
+function trade(direction) {
+
+  if (!running) {
+
+    document.getElementById("message").textContent =
+      "Start the simulator first.";
+
+    return;
+
+  }
+
+  let amount =
+    Number(document.getElementById("amount").value);
+
+  if (!Number.isFinite(amount) || amount <= 0) {
+
+    document.getElementById("message").textContent =
+      "Enter a valid virtual amount.";
+
+    return;
+
+  }
+
+  document.getElementById("message").textContent =
+    direction + " practice entry recorded.";
+
+}
+
+</script>
+
+</body>
+</html>
