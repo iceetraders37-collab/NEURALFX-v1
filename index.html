@@ -290,6 +290,10 @@ function trade(direction) {
   <h2 style="color:#00ff88;">📊 Trade History</h2>
   <p>Virtual trades recorded by NEURALFX.</p>
 direction + " practice entry recorded.";
+  if (typeof window.recordNEURALFXTrade === "function") {
+  window.recordNEURALFXTrade(direction, amount);
+}
+}
   <div id="trade-list">
     <p>No trades recorded yet.</p>
   </div>
