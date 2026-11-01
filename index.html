@@ -285,5 +285,82 @@ function trade(direction) {
 
 </script>
 
+<!-- NEURALFX TRADE HISTORY -->
+<section id="trade-history" style="background:#101713;color:white;padding:20px;margin:20px;border:1px solid #26352b;border-radius:18px;font-family:Arial,sans-serif;">
+  <h2 style="color:#00ff88;">📊 Trade History</h2>
+  <p>Virtual trades recorded by NEURALFX.</p>
+
+  <div id="trade-list">
+    <p>No trades recorded yet.</p>
+  </div>
+
+  <button onclick="clearTradeHistory()" style="background:#26352b;color:white;padding:12px;border:0;border-radius:8px;">
+    Clear History
+  </button>
+</section>
+
+<script>
+(function () {
+  const key = "neuralfx_trade_history";
+  const list = document.getElementById("trade-list");
+
+  function getTrades() {
+    try {
+      return JSON.parse(localStorage.getItem(key)) || [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveTrade(type, amount) {
+    const trades = getTrades();
+
+    trades.unshift({
+      type: type,
+      amount: amount,
+      time: new Date().toLocaleString()
+    });
+
+    localStorage.setItem(key, JSON.stringify(trades.slice(0, 50)));
+    renderTrades();
+  }
+
+  function renderTrades() {
+    const trades = getTrades();
+
+    if (!trades.length) {
+      list.innerHTML = "<p>No trades recorded yet.</p>";
+      return;
+    }
+
+    list.innerHTML = trades.map(function (trade) {
+      return `
+        <div style="padding:12px;margin:10px 0;background:#17221b;border-radius:10px;">
+          <strong style="color:${trade.type === "BUY" ? "#00ff88" : "#ff7070"}">
+            ${trade.type}
+          </strong>
+          <p>Virtual amount: $${Number(trade.amount).toFixed(2)}</p>
+          <small>${trade.time}</small>
+        </div>
+      `;
+    }).join("");
+  }
+
+  window.clearTradeHistory = function () {
+    if (confirm("Clear all virtual trade history?")) {
+      localStorage.removeItem(key);
+      renderTrades();
+    }
+  };
+
+  window.recordNEURALFXTrade = saveTrade;
+
+  renderTrades();
+})();
+</script>
+<!-- END NEURALFX TRADE HISTORY -->
+
 </body>
 </html>
+
+<!-- NEURALFX TRADE HISTORY -->
