@@ -28,4 +28,62 @@ function resetDemo(){if(confirm("Reset virtual balance and practice history?")){
 function accountPreview(action){let e=document.getElementById("email").value.trim(),p=document.getElementById("password").value;document.getElementById("accountmsg").textContent=e&&p?action+" preview only. No account was created and credentials were not sent.":"Enter email and password to preview the form. Real authentication is not connected.";document.getElementById("password").value=""}
 function render(){document.getElementById("balance").textContent=cash(s.balance);document.getElementById("homebal").textContent=cash(s.balance);document.getElementById("tradecount").textContent=s.trades.length;document.getElementById("lessoncount").textContent=s.done.length+" / "+LESSONS.length;let p=Math.round(s.done.length/LESSONS.length*100);document.getElementById("pct").textContent=p+"%";document.getElementById("progressfill").style.width=p+"%";document.getElementById("lessonbadge").textContent=s.done.length+" / "+LESSONS.length+" complete";buildLessons();renderHistory()}
 document.getElementById("year").textContent=new Date().getFullYear();render();
-</script></body></html>
+</script>
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "YOUR_EXISTING_API_KEY",
+  authDomain: "neuralfx-17cd3.firebaseapp.com",
+  projectId: "neuralfx-17cd3",
+  storageBucket: "neuralfx-17cd3.firebasestorage.app",
+  messagingSenderId: "310584377076",
+  appId: "1:310584377076:web:7964c57398044ac278e8a1"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.accountPreview = async function(action) {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const msg = document.getElementById("accountmsg");
+
+  if (!email || !password) {
+    msg.textContent = "Enter your email and password.";
+    return;
+  }
+
+  try {
+    if (action === "Create account") {
+      await createUserWithEmailAndPassword(auth, email, password);
+      msg.textContent = "Account created successfully!";
+    } else {
+      await signInWithEmailAndPassword(auth, email, password);
+      msg.textContent = "Welcome back to NEURALFX!";
+    }
+  } catch (error) {
+    msg.textContent = error.message;
+  } finally {
+    document.getElementById("password").value = "";
+  }
+};
+
+onAuthStateChanged(auth, user => {
+  if (user) {
+    document.getElementById("accountmsg").textContent =
+      "Logged in as " + user.email;
+  }
+});
+</script>
+</body></html>
+</body></html>
