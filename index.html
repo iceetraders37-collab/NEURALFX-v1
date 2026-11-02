@@ -6,6 +6,29 @@
 <header class="top"><div class="brand">â—ˆ NEURALFX<small>LEARN Â· PRACTICE Â· PROGRESS</small></div><nav class="nav"><button class="active" data-go="home">Home</button><button data-go="academy">Academy</button><button data-go="simulator">Simulator</button><button data-go="history">History</button><button data-go="account">Account</button></nav><span class="tag">GUEST PREVIEW</span></header>
 <main>
 <section id="home"><div class="hero"><div class="panel"><div class="eyebrow">YOUR LEARNING JOURNEY</div><h1>Learn the market.<br><span>Practice safely.</span></h1><p>Beginner-friendly forex education and a virtual simulator. Learn without risking real money.</p><div class="actions"><button onclick="go('academy')">Start learning â†’</button><button class="secondary" onclick="go('simulator')">Open simulator</button></div></div><div class="panel"><div class="eyebrow">PRACTICE OVERVIEW</div><div class="stats"><div class="stat"><small>Virtual balance</small><strong id="homebal">$10,000.00</strong></div><div class="stat"><small>Practice trades</small><strong id="tradecount">0</strong></div><div class="stat"><small>Lessons</small><strong id="lessoncount">0 / 6</strong></div><div class="stat"><small>Progress</small><strong id="pct">0%</strong></div></div></div></div><div class="head"><div><div class="eyebrow">EXPLORE</div><h2>Your learning tools</h2></div></div><div class="grid3"><div class="card"><span class="tag">ACADEMY</span><h3>Forex basics</h3><p>Learn currency pairs, pips, spreads and risk awareness.</p><button class="secondary" onclick="go('academy')">View lessons</button></div><div class="card"><span class="tag">PRACTICE</span><h3>Virtual simulator</h3><p>Try practice BUY and SELL entries with virtual funds.</p><button class="secondary" onclick="go('simulator')">Practice</button></div><div class="card"><span class="tag">TRACK</span><h3>Trade history</h3><p>Review virtual practice entries saved in this browser.</p><button class="secondary" onclick="go('history')">View history</button></div></div></section>
+<div class="panel">
+  <h2>NEURALFX LIVE</h2>
+  <p>Live Market Chart</p>
+
+  <div style="width:100%;height:450px">
+    <iframe
+      src="https://www.tradingview.com/widgetembed/?symbol=FX%3AEURUSD&interval=5&theme=dark&style=1&locale=en&allow_symbol_change=true&hide_side_toolbar=false"
+      style="width:100%;height:100%;border:0"
+      title="EURUSD Live Market Chart">
+    </iframe>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>DEMO DASHBOARD</h2>
+  <p>Account: Demo Simulator</p>
+  <p>Broker: iFX Brokers</p>
+  <p>Platform: MT5</p>
+  <p>Balance: $10,000.00</p>
+  <p>Trading Mode: Demo Only</p>
+  <p>Account Connection: Not Connected</p>
+</div>
+
 <section id="academy" class="section hidden"><div class="head"><div><div class="eyebrow">FREE EDUCATION</div><h2>Forex Academy</h2><p>Complete lessons to track your learning.</p></div><span class="tag" id="lessonbadge">0 / 6</span></div><div class="progress"><span id="progressfill"></span></div><div class="grid3" id="lessons"></div></section>
 <section id="simulator" class="section hidden"><div class="head"><div><div class="eyebrow">VIRTUAL PRACTICE</div><h2>Trading simulator</h2><p>Simulated entries onlyâ€”no live prices or broker orders.</p></div><span class="tag">DEMO FUNDS</span></div><div class="sim"><div class="panel"><div class="row"><div><small style="color:var(--mut)">Virtual balance</small><h2 id="balance">$10,000.00</h2></div><span class="tag">LOCAL DEMO</span></div><div class="card"><span class="eyebrow">ILLUSTRATIVE CHART Â· NOT LIVE</span><svg viewBox="0 0 500 130" style="width:100%;height:130px"><polyline points="0,105 40,90 75,100 110,70 150,82 190,45 225,60 265,30 305,48 345,25 380,40 420,15 500,8" fill="none" stroke="#39e58c" stroke-width="3"/></svg></div><div class="field"><label for="amount">Virtual amount (USD)</label><input id="amount" type="number" min="1" max="10000" value="100"></div><div class="tradebuttons"><button onclick="trade('BUY')">BUY Â· virtual</button><button class="sell" onclick="trade('SELL')">SELL Â· virtual</button></div><div class="message" id="msg">Choose an amount and record a practice entry.</div></div><div class="panel"><div class="eyebrow">SIMULATOR RULES</div><h3>Practice responsibly</h3><p>â€¢ Starts with virtual $10,000.</p><p>â€¢ Records practice direction and amount.</p><p>â€¢ Does not calculate market profit/loss.</p><p>â€¢ Saves only in this browser.</p><button class="secondary" onclick="resetDemo()">Reset virtual account</button><div class="notice" style="margin-top:12px">Educational demo. No live data, real orders, or guaranteed profits.</div></div></div></section>
 <section id="history" class="section hidden"><div class="head"><div><div class="eyebrow">YOUR ACTIVITY</div><h2>Virtual trade history</h2><p>Saved on this device only.</p></div><button class="sell" onclick="clearTrades()">Clear history</button></div><div class="panel"><div class="history" id="historylist"><p>No practice trades recorded.</p></div></div></section>
